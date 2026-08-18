@@ -1,0 +1,18 @@
+.landing-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 1460px;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-actions,
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+

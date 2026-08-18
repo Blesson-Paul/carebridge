@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  get "login", to: "pages#login"
-  get "signup", to: "pages#signup"
+  get "login", to: redirect("/users/sign_in")
+  get "signup", to: redirect("/users/sign_up")
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

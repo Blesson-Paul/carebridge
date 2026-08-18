@@ -1,0 +1,11 @@
+<nav class="landing-navbar">
+  <%= link_to root_path, class: "brand" do %>
+    <span class="brand-icon">♡</span>
+    <span>Care<span>Bridge</span></span>
+  <% end %>
+
+  <div class="nav-actions">
+    <%= link_to "Log In", new_user_session_path, class: "btn btn-outline" %>
+    <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary" %>
+  </div>
+</nav>
