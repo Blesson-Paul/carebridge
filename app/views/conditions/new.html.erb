@@ -1,9 +1,31 @@
-<%= form_with model: @condition do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-  <%= f.label :symptoms %>
-  <%= f.text_field :symptoms %>
-  <%= f.label :diagnosed_on %>
-  <%= f.date_field :diagnosed_on %>
-  <%= f.submit %>
-<% end %>
+<div class="condition-form-page">
+  <%= link_to "← Back to my conditions", conditions_path, class: "back-link" %>
+
+  <div class="condition-form-card">
+    <h1>Add a condition</h1>
+    <p class="condition-form-subtitle">
+      Fill in the condition information so it can be tracked in CareBridge.
+    </p>
+
+    <%= simple_form_for @condition do |f| %>
+      <div class="form-inputs">
+        <%= f.input :description,
+                    label: "Condition name",
+                    placeholder: "Example: Migraine" %>
+
+        <%= f.input :symptoms,
+                    as: :text,
+                    placeholder: "Example: Headache, nausea, light sensitivity" %>
+
+        <%= f.input :diagnosed_on,
+                    as: :date,
+                    html5: true,
+                    label: "Diagnosed on" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Create condition", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

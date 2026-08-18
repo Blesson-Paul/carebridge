@@ -1,7 +1,42 @@
-<h1>My conditions</h1>
+<div class="conditions-page">
+  <div class="conditions-header">
+    <div>
+      <h1>My conditions</h1>
+      <p>Choose a condition to view symptoms, diagnosis date, and current status.</p>
+    </div>
 
-<ul>
-  <% @conditions.each do |c| %>
-   <li> <%=  c.description %> </li>
+    <%= link_to "Add condition", new_condition_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @conditions.any? %>
+    <div class="conditions-grid">
+      <% @conditions.each do |condition| %>
+        <%= link_to condition_path(condition), class: "condition-card" do %>
+          <div class="condition-card-header">
+            <div class="condition-icon">♡</div>
+            <span class="condition-status <%= condition.cured? ? "status-cured" : "status-active" %>">
+              <%= condition.cured? ? "Cured" : "Active" %>
+            </span>
+          </div>
+
+          <h2><%= condition.description %></h2>
+          <p><%= condition.symptoms.presence || "No symptoms added yet." %></p>
+
+          <div class="condition-meta">
+            <span>Diagnosed on</span>
+            <strong>
+              <%= condition.diagnosed_on ? condition.diagnosed_on.strftime("%b %d, %Y") : "Not added" %>
+            </strong>
+          </div>
+
+          <span class="condition-card-link">View details →</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h2>No conditions yet</h2>
+      <p>Your conditions will appear here after they are created.</p>
+    </div>
   <% end %>
-</ul>
+</div>
