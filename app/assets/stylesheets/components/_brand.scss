@@ -1,0 +1,24 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #071044;
+  font-size: 32px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand > span:last-child span {
+  color: #6250f5;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #6250f5;
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+}
