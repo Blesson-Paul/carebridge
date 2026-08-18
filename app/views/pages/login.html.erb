@@ -1,0 +1,72 @@
+<div class="auth-page">
+  <%= link_to root_path, class: "auth-brand" do %>
+    <span class="brand-icon">♡</span>
+    <span>Care<span>Bridge</span></span>
+  <% end %>
+
+  <main class="auth-shell">
+    <section class="auth-card">
+      <p class="eyebrow">WELCOME BACK</p>
+
+      <h1>Log in to your care space</h1>
+      <p class="auth-subtitle">
+        Continue tracking conditions, checking daily reports, and chatting with your AI health companion.
+      </p>
+
+      <form class="auth-form" action="#" method="post">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Enter your password">
+        </div>
+
+        <div class="form-row">
+          <label class="remember-me">
+            <input type="checkbox">
+            <span>Remember me</span>
+          </label>
+
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn btn-primary auth-submit" type="submit">Log In</button>
+      </form>
+
+      <p class="auth-footer">
+        New to CareBridge?
+        <%= link_to "Create account", signup_path %>
+      </p>
+    </section>
+
+    <section class="auth-preview">
+      <div class="auth-glow"></div>
+
+      <div class="preview-panel">
+        <div class="preview-icon">♡</div>
+        <h2>Daily patient care, made simple.</h2>
+        <p>
+          One patient, one clear dashboard, and AI support to help understand health notes.
+        </p>
+
+        <div class="preview-list">
+          <div>
+            <span>✓</span>
+            Track conditions
+          </div>
+          <div>
+            <span>✓</span>
+            Save chat history
+          </div>
+          <div>
+            <span>✓</span>
+            Read simple AI reports
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
