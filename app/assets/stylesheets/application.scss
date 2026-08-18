@@ -22,7 +22,7 @@ a {
 .landing-page {
   min-height: 100vh;
   overflow: hidden;
-  padding: 24px 40px 24px;
+  padding: 24px 40px 18px;
   position: relative;
 }
 
@@ -117,7 +117,7 @@ a {
   align-items: center;
   gap: 34px;
   max-width: 1460px;
-  margin: 32px auto 0;
+  margin: 26px auto 0;
   position: relative;
   z-index: 1;
 }
@@ -139,7 +139,7 @@ a {
   max-width: 680px;
   margin: 0;
   color: #071044;
-  font-size: 72px;
+  font-size: clamp(58px, 4.6vw, 72px);
   font-weight: 900;
   letter-spacing: -2px;
   line-height: 1.08;
@@ -161,7 +161,7 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
-  margin-top: 30px;
+  margin-top: 26px;
   max-width: 760px;
 }
 
@@ -199,7 +199,7 @@ a {
 .hero-visual {
   display: flex;
   justify-content: center;
-  min-height: 560px;
+  min-height: 520px;
   position: relative;
 }
 
@@ -216,7 +216,7 @@ a {
 
 .phone-card {
   width: 330px;
-  min-height: 540px;
+  min-height: 520px;
   margin-top: 0;
   padding: 18px;
   background: linear-gradient(180deg, #ffffff, #f7f5ff);
@@ -430,9 +430,9 @@ a {
   display: grid;
   grid-template-columns: auto 1fr 1px 1.4fr;
   align-items: center;
-  gap: 28px;
+  gap: 22px;
   max-width: 780px;
-  margin: -58px 0 0 26px;
+  margin: 12px auto 0;
   color: #071044;
   position: relative;
   z-index: 2;
@@ -440,7 +440,7 @@ a {
 
 .quote-mark {
   color: #8b78ff;
-  font-size: 70px;
+  font-size: 54px;
   line-height: 1;
 }
 
@@ -452,11 +452,11 @@ a {
 .bottom-note p {
   margin: 0;
   color: #273354;
-  line-height: 1.55;
+  line-height: 1.4;
 }
 
 .note-divider {
-  height: 74px;
+  height: 58px;
   background: #8f80ff;
 }
 
