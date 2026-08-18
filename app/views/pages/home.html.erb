@@ -6,8 +6,8 @@
     </div>
 
     <div class="nav-actions">
-      <a href="#" class="btn btn-outline">Log In</a>
-      <a href="#" class="btn btn-primary">Get Started</a>
+      <%= link_to "Log In", login_path, class: "btn btn-outline" %>
+      <%= link_to "Get Started", signup_path, class: "btn btn-primary" %>
     </div>
   </nav>
 
@@ -26,8 +26,10 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary btn-large">Get Started <span>›</span></a>
-        <a href="#" class="btn btn-outline btn-large">Log In</a>
+        <%= link_to signup_path, class: "btn btn-primary btn-large" do %>
+          Get Started <span>›</span>
+        <% end %>
+        <%= link_to "Log In", login_path, class: "btn btn-outline btn-large" %>
       </div>
 
       <div class="hero-features">
