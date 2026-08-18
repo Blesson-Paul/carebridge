@@ -4,16 +4,19 @@ class ChatsController < ApplicationController
     @condition = Condition.find(params[:condition_id])
     @chat = Chat.new(title: "Untitled")
     @chat.condition = @condition
-    if @chat.save
-      redirect_to chat_path(@chat)
+    @chat.user = current_user
+    if @chat.save!
+      redirect_to condition_chat_path(@condition, @chat)
     else
-      # @chats = @condition.chat.where(user: current_user)
-      render "conditons/show"
+      @chats = @condition.chat
+      render "conditions/show"
     end
   end
 
   def show
-
+  @condition = Condition.find(params[:condition_id])
+  @chat = @condition.chat
+  @message = Message.new
   end
 
   private
