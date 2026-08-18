@@ -1,0 +1,9 @@
+<%= form_with model: @condition do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.label :symptoms %>
+  <%= f.text_field :symptoms %>
+  <%= f.label :diagnosed_on %>
+  <%= f.date_field :diagnosed_on %>
+  <%= f.submit %>
+<% end %>
