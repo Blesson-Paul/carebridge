@@ -1,12 +1,52 @@
-<%= link_to "← #{@chat.condition.description}", condition_path(@chat.condition) %>
+<div class="chat-page">
+  <%= link_to "← Back to #{@chat.condition.description}", condition_path(@chat.condition), class: "back-link" %>
 
-<h1 id="chat_title"><%= @chat.title %></h1>
+  <div class="chat-card">
+    <div class="chat-header">
+      <div class="chat-avatar">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+      </div>
+      <div>
+        <h1><%= @chat.title.presence || "AI Health Assistant" %></h1>
+        <p class="chat-subtitle">Condition: <strong><%= @chat.condition.description %></strong></p>
+      </div>
+    </div>
 
+    <div class="messages-container" id="messages">
+      <% if @chat.messages.any? %>
+        <% @chat.messages.each do |message| %>
+          <div class="message-wrapper <%= message.role == 'user' ? 'message-user' : 'message-assistant' %>">
+            <div class="message-bubble">
+              <div class="message-header">
+                <strong><%= message.role == 'user' ? 'You' : 'CareBridge AI' %></strong>
+                <span class="message-time"><%= message.created_at.strftime("%I:%M %p") %></span>
+              </div>
+              <div class="message-content">
+                <%= simple_format(message.content) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="chat-empty-state">
+          <div class="empty-icon">
+            <i class="fa-regular fa-comments"></i>
+          </div>
+          <h3>Start your conversation</h3>
+          <p>Ask any questions about symptoms, self-care routines, or management options for <strong><%= @chat.condition.description %></strong>.</p>
+        </div>
+      <% end %>
+    </div>
 
-
-<div id="new_message_container">
-  <%= simple_form_for [@chat, @message] do |f| %>
-    <%= f.input :content, label: "Ask a question", required: true, placeholder: "How should I get started with the condition?" %>
-    <%= f.button :submit, 'Ask LLM', class: 'btn btn-primary' %>
-  <% end %>
+    <div id="new_message_container" class="chat-input-section">
+      <%= simple_form_for [@chat, @message], html: { class: "chat-form" } do |f| %>
+        <%= f.input :content,
+                    label: false,
+                    required: true,
+                    placeholder: "Ask about symptoms, treatments, or routines...",
+                    input_html: { rows: 2, class: "chat-input" } %>
+        <%= f.button :submit, 'Ask AI', class: 'btn btn-primary btn-chat-submit' %>
+      <% end %>
+    </div>
+  </div>
 </div>

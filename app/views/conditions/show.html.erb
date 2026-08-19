@@ -27,6 +27,16 @@
         </strong>
       </div>
     </div>
+    <div class="condition-show-actions">
+      <% if @condition.chat.present? %>
+        <%= link_to condition_chat_path(@condition, @condition.chat), class: "btn btn-primary btn-large" do %>
+          <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
+        <% end %>
+      <% else %>
+        <%= button_to condition_chats_path(@condition), method: :post, class: "btn btn-primary btn-large" do %>
+          <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <%= button_to "New chat", condition_chats_path(@condition), class: "btn btn-primary" %>
 </div>

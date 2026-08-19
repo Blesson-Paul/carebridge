@@ -180,3 +180,56 @@
 .condition-form-card textarea {
   min-height: 120px;
 }
+
+.condition-title-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: #5848ef;
+  }
+}
+
+.condition-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(226, 226, 246, 0.7);
+
+  .condition-card-link {
+    margin-top: 0;
+    text-decoration: none;
+    font-size: 14px;
+  }
+}
+
+.btn-ai-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7b61ff 0%, #5d46e8 100%);
+  color: #ffffff !important;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(109, 88, 255, 0.25);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(109, 88, 255, 0.35);
+  }
+}
+
+.condition-show-actions {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+}

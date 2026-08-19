@@ -5,7 +5,6 @@ class MessagesController < ApplicationController
   def create
     # find the chat for
       #1. the current user and
-    raise
     @chat = current_user.chats.find[:chat_id]
       #2. condition
     @condition = @chat.condition
