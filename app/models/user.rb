@@ -6,4 +6,6 @@ class User < ApplicationRecord
   has_many :messages, through: :chats, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  validates :name, :date_of_birth, :gender, presence: true
 end
