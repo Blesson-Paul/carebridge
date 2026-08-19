@@ -3,11 +3,23 @@ class ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :toggle_cured]
 
   def index
-    @tab = params[:tab] == "archived" ? "archived" : "active"
+    @tab = params[:tab].presence || "all"
     all_conditions = current_user.conditions
-    @active_conditions = all_conditions.where(archived: false)
+    @unarchived_conditions = all_conditions.where(archived: false)
+    @active_conditions = all_conditions.where(archived: false, cured: false)
+    @cured_conditions = all_conditions.where(archived: false, cured: true)
     @archived_conditions = all_conditions.where(archived: true)
-    @conditions = @tab == "archived" ? @archived_conditions : @active_conditions
+
+    @conditions = case @tab
+                  when "active"
+                    @active_conditions
+                  when "cured"
+                    @cured_conditions
+                  when "archived"
+                    @archived_conditions
+                  else
+                    @unarchived_conditions
+                  end
   end
 
   def show

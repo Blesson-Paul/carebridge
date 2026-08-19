@@ -40,13 +40,18 @@
       </div>
 
       <div class="profile-pill">
-        <span class="pill-label">ACTIVE CONDITIONS</span>
+        <span class="pill-label">ACTIVE</span>
         <strong class="pill-value"><%= @active_conditions.count %></strong>
       </div>
 
       <div class="profile-pill">
-        <span class="pill-label">ARCHIVED HISTORY</span>
-        <strong class="pill-value"><%= @archived_conditions.count %></strong>
+        <span class="pill-label">CURED</span>
+        <strong class="pill-value text-success"><%= @cured_conditions.count %></strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">ARCHIVED</span>
+        <strong class="pill-value text-muted"><%= @archived_conditions.count %></strong>
       </div>
     </div>
   </div>
@@ -54,18 +59,28 @@
   <!-- Dashboard Filter Tabs & Search Bar -->
   <div class="dashboard-controls-row">
     <div class="dashboard-tabs">
+      <%= link_to conditions_path(tab: :all), class: "tab-btn #{@tab == 'all' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-list me-1"></i> All
+        <span class="tab-badge"><%= @unarchived_conditions.count %></span>
+      <% end %>
+
       <%= link_to conditions_path(tab: :active), class: "tab-btn #{@tab == 'active' ? 'active' : ''}" do %>
-        <i class="fa-solid fa-heart-pulse me-1"></i> Active Conditions
+        <i class="fa-solid fa-heart-pulse me-1"></i> Active
         <span class="tab-badge"><%= @active_conditions.count %></span>
       <% end %>
 
+      <%= link_to conditions_path(tab: :cured), class: "tab-btn #{@tab == 'cured' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-circle-check me-1"></i> Cured
+        <span class="tab-badge"><%= @cured_conditions.count %></span>
+      <% end %>
+
       <%= link_to conditions_path(tab: :archived), class: "tab-btn #{@tab == 'archived' ? 'active' : ''}" do %>
-        <i class="fa-solid fa-box-archive me-1"></i> Archived History
+        <i class="fa-solid fa-box-archive me-1"></i> Archived
         <span class="tab-badge"><%= @archived_conditions.count %></span>
       <% end %>
     </div>
 
-    <% if @conditions.any? %>
+    <% if @unarchived_conditions.any? || @archived_conditions.any? %>
       <div class="search-input-wrapper">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" id="condition_search" placeholder="Search conditions or symptoms..." class="search-input" autocomplete="off">
@@ -146,13 +161,21 @@
     </div>
   <% else %>
     <div class="empty-state">
-      <% if @tab == 'archived' %>
+      <% if @tab == 'cured' %>
+        <h2>No cured conditions yet</h2>
+        <p>When you recover from a condition, mark it as cured and it will appear here.</p>
+        <%= link_to "View all conditions", conditions_path(tab: :all), class: "btn btn-outline mt-3" %>
+      <% elsif @tab == 'archived' %>
         <h2>No archived conditions</h2>
         <p>Conditions you move to the archive will appear here for your medical records.</p>
-        <%= link_to "View active conditions", conditions_path(tab: :active), class: "btn btn-outline mt-3" %>
+        <%= link_to "View all conditions", conditions_path(tab: :all), class: "btn btn-outline mt-3" %>
+      <% elsif @tab == 'active' %>
+        <h2>No active conditions 🎉</h2>
+        <p>You have no ongoing active health conditions tracked right now.</p>
+        <%= link_to "Add a condition", new_condition_path, class: "btn btn-primary mt-3" %>
       <% else %>
-        <h2>No active conditions</h2>
-        <p>Your conditions will appear here after they are created.</p>
+        <h2>No conditions yet</h2>
+        <p>Your tracked health conditions will appear here after they are created.</p>
         <%= link_to "Add your first condition", new_condition_path, class: "btn btn-primary mt-3" %>
       <% end %>
     </div>
