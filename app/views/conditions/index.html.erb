@@ -59,11 +59,6 @@
   <!-- Dashboard Filter Tabs & Search Bar -->
   <div class="dashboard-controls-row">
     <div class="dashboard-tabs">
-      <%= link_to conditions_path(tab: :all), class: "tab-btn #{@tab == 'all' ? 'active' : ''}" do %>
-        <i class="fa-solid fa-list me-1"></i> All
-        <span class="tab-badge"><%= @unarchived_conditions.count %></span>
-      <% end %>
-
       <%= link_to conditions_path(tab: :active), class: "tab-btn #{@tab == 'active' ? 'active' : ''}" do %>
         <i class="fa-solid fa-heart-pulse me-1"></i> Active
         <span class="tab-badge"><%= @active_conditions.count %></span>
@@ -72,6 +67,11 @@
       <%= link_to conditions_path(tab: :cured), class: "tab-btn #{@tab == 'cured' ? 'active' : ''}" do %>
         <i class="fa-solid fa-circle-check me-1"></i> Cured
         <span class="tab-badge"><%= @cured_conditions.count %></span>
+      <% end %>
+
+      <%= link_to conditions_path(tab: :all), class: "tab-btn #{@tab == 'all' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-list me-1"></i> All
+        <span class="tab-badge"><%= @unarchived_conditions.count %></span>
       <% end %>
 
       <%= link_to conditions_path(tab: :archived), class: "tab-btn #{@tab == 'archived' ? 'active' : ''}" do %>
