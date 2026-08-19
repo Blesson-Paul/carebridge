@@ -6,7 +6,7 @@
       <div>
         <h1>Edit condition</h1>
         <p class="condition-form-subtitle">
-          Update symptoms, diagnosis date, or mark this condition as resolved.
+          Update condition name, symptoms, or diagnosis date.
         </p>
       </div>
       <% if @condition.archived? %>
@@ -42,13 +42,6 @@
                     html5: true,
                     required: true,
                     label: "Diagnosed on" %>
-
-        <div class="cured-checkbox-card mt-3 mb-4 p-3 border rounded-3 bg-light d-flex align-items-center gap-3">
-          <%= f.input :cured,
-                      as: :boolean,
-                      label: "Mark this condition as Cured / Resolved",
-                      wrapper_html: { class: "mb-0" } %>
-        </div>
       </div>
 
       <div class="form-actions d-flex gap-3">
