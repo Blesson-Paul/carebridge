@@ -5,7 +5,6 @@ class ConditionsController < ApplicationController
   def index
     @tab = params[:tab].presence || "active"
     all_conditions = current_user.conditions
-    @unarchived_conditions = all_conditions.where(archived: false)
     @active_conditions = all_conditions.where(archived: false, cured: false)
     @cured_conditions = all_conditions.where(archived: false, cured: true)
     @archived_conditions = all_conditions.where(archived: true)
@@ -13,11 +12,9 @@ class ConditionsController < ApplicationController
     @conditions = case @tab
                   when "cured"
                     @cured_conditions
-                  when "all"
-                    @unarchived_conditions
                   when "archived"
                     @archived_conditions
-                  else # "active" is the default
+                  else # "active" default
                     @active_conditions
                   end
   end
