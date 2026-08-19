@@ -1,5 +1,4 @@
 class ChatsController < ApplicationController
-
   def create
     @condition = Condition.find(params[:condition_id])
     @chat = Chat.new(title: "Untitled")
@@ -14,14 +13,14 @@ class ChatsController < ApplicationController
   end
 
   def show
-  @condition = Condition.find(params[:condition_id])
-  @chat = @condition.chat
-  @message = Message.new
+    @condition = Condition.find(params[:condition_id])
+    @chat = @condition.chat
+    @message = Message.new
   end
 
-  private
+  # private
 
-  def chat_params
-    params.require(:chat).permit
-  end
+  # def chat_params
+  #   params.require(:chat).permit(:id, )
+  # end
 end

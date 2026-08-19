@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_17_144929) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_19_144036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_144929) do
     t.date "diagnosed_on"
     t.string "symptoms"
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_conditions_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -59,5 +61,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_144929) do
 
   add_foreign_key "chats", "conditions"
   add_foreign_key "chats", "users"
+  add_foreign_key "conditions", "users"
   add_foreign_key "messages", "chats"
 end

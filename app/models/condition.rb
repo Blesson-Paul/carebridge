@@ -1,5 +1,5 @@
 class Condition < ApplicationRecord
   has_one :chat
-  has_one :user, through: :chat
+  belongs_to :user
   has_many :messages, through: :chat
 end

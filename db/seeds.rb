@@ -79,7 +79,7 @@ seed_users.each do |attributes|
   user.save!
 
   attributes[:conditions].each do |description, symptoms, diagnosed_on, cured, chat_title|
-    condition = Condition.find_or_create_by!(description: description, symptoms: symptoms, diagnosed_on: diagnosed_on) do |record|
+    condition = Condition.find_or_create_by!(description: description, user: user, symptoms: symptoms, diagnosed_on: diagnosed_on) do |record|
       record.cured = cured
     end
 

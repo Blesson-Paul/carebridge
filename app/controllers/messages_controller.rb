@@ -1,28 +1,29 @@
 class MessagesController < ApplicationController
+  SYSTEM_PROMPT = "You are a medical doctor. I am a patient suffering from the said condition, seeking advice on how to get better. don't diagnose me, give me simple advice based only on validated medical studies, only answer with facts. answer with concisely in markdown."
 
-  SYSTEM_PROMPT = "You are a medical doctor. I am a patient suffering from the said condition, seeking advice on how to get better. don't diagnose me, give me simple advice based only on validated medical studies, only answer with facts. answer with concisely in markdown"
-  p SYSTEM_PROMPT
   def create
     # find the chat for
-      #1. the current user and
-    @chat = current_user.chats.find[:chat_id]
-      #2. condition
+    # 1. the current user and
+    @chat = current_user.chats.find(params[:chat_id])
+
+    @@continuous_params = params
+    # 2. condition
     @condition = @chat.condition
-    #creating the message + strong params
+    # creating the message + strong params
     @message = Message.new(message_params)
-    #setting the message chat
+    # setting the message chat
     @message.chat = @chat
-    #setting the role (user)
+    # setting the role (user)
     @message.role = "user"
-    #save the message
+    # save the message
     if @message.save
       # choose llm
-      ruby_llm_chat = RubyLLM.chat
+      @ruby_llm_chat = RubyLLM.chat
       # save response with instructions (prompt) and ask the user qst
-      response = ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
+      response = @ruby_llm_chat.with_instructions(build_system_promt).ask(@message.content)
       # create the llm message
-      Message.create(role: "assistant", content: response.content, chat: @chat)
-      #redirect to the chat path
+      @assistant_message = Message.create(role: "assistant", content: response.content, chat: @chat)
+      # redirect to the chat path
       redirect_to chat_path(@chat)
     else
       render "chats/show", status: :unprocessable_entity
@@ -32,7 +33,12 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    paras.require(:message).permit(:content)
+    params.require(:message).permit(:content)
+  end
+
+  def build_system_promt
+    specialization = "you are a specialist in #{Condition.find(Chat.find(params[:chat_id]).condition_id).description}"
+    [ SYSTEM_PROMPT, specialization ].compact.join("\n\n")
   end
 
   # def find_condition
@@ -40,5 +46,4 @@ class MessagesController < ApplicationController
   #     #2. condition
   #   @condition = @chat.condition
   # end
-
 end
