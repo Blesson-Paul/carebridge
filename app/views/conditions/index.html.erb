@@ -41,30 +41,48 @@
 
       <div class="profile-pill">
         <span class="pill-label">ACTIVE CONDITIONS</span>
-        <strong class="pill-value"><%= @conditions.reject(&:cured?).count %></strong>
+        <strong class="pill-value"><%= @active_conditions.count %></strong>
       </div>
 
       <div class="profile-pill">
-        <span class="pill-label">RESOLVED</span>
-        <strong class="pill-value"><%= @conditions.select(&:cured?).count %></strong>
+        <span class="pill-label">ARCHIVED HISTORY</span>
+        <strong class="pill-value"><%= @archived_conditions.count %></strong>
       </div>
     </div>
   </div>
 
-  <div class="section-title-row">
-    <h2>Tracked Conditions</h2>
-    <span class="conditions-count"><%= @conditions.count %> total</span>
+  <!-- Dashboard Filter Tabs -->
+  <div class="dashboard-tabs-row">
+    <div class="dashboard-tabs">
+      <%= link_to conditions_path(tab: :active), class: "tab-btn #{@tab == 'active' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-heart-pulse me-1"></i> Active Conditions
+        <span class="tab-badge"><%= @active_conditions.count %></span>
+      <% end %>
+
+      <%= link_to conditions_path(tab: :archived), class: "tab-btn #{@tab == 'archived' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-box-archive me-1"></i> Archived History
+        <span class="tab-badge"><%= @archived_conditions.count %></span>
+      <% end %>
+    </div>
   </div>
 
   <% if @conditions.any? %>
     <div class="conditions-grid">
       <% @conditions.each do |condition| %>
-        <div class="condition-card">
+        <div class="condition-card <%= condition.archived? ? 'condition-card-archived' : '' %>">
           <div class="condition-card-header">
-            <div class="condition-icon">♡</div>
-            <span class="condition-status <%= condition.cured? ? "status-cured" : "status-active" %>">
-              <%= condition.cured? ? "Cured" : "Active" %>
-            </span>
+            <div class="condition-icon <%= condition.archived? ? 'icon-archived' : '' %>">
+              <%= condition.archived? ? "📁" : "♡" %>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+              <% if condition.archived? %>
+                <span class="condition-status status-archived">Archived</span>
+              <% else %>
+                <span class="condition-status <%= condition.cured? ? 'status-cured' : 'status-active' %>">
+                  <%= condition.cured? ? "Cured" : "Active" %>
+                </span>
+              <% end %>
+            </div>
           </div>
 
           <h2><%= link_to condition.description, condition_path(condition), class: "condition-title-link" %></h2>
@@ -88,13 +106,20 @@
 
           <div class="condition-card-actions">
             <%= link_to "Details →", condition_path(condition), class: "condition-card-link" %>
-            <% if condition.chat.present? %>
-              <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+            
+            <% if condition.archived? %>
+              <%= button_to unarchive_condition_path(condition), method: :patch, class: "btn btn-outline btn-sm" do %>
+                <i class="fa-solid fa-arrow-rotate-left me-1"></i> Restore
               <% end %>
             <% else %>
-              <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+              <% if condition.chat.present? %>
+                <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                <% end %>
+              <% else %>
+                <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                <% end %>
               <% end %>
             <% end %>
           </div>
@@ -103,9 +128,15 @@
     </div>
   <% else %>
     <div class="empty-state">
-      <h2>No conditions yet</h2>
-      <p>Your conditions will appear here after they are created.</p>
-      <%= link_to "Add your first condition", new_condition_path, class: "btn btn-primary mt-3" %>
+      <% if @tab == 'archived' %>
+        <h2>No archived conditions</h2>
+        <p>Conditions you move to the archive will appear here for your medical records.</p>
+        <%= link_to "View active conditions", conditions_path(tab: :active), class: "btn btn-outline mt-3" %>
+      <% else %>
+        <h2>No active conditions</h2>
+        <p>Your conditions will appear here after they are created.</p>
+        <%= link_to "Add your first condition", new_condition_path, class: "btn btn-primary mt-3" %>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,9 +1,13 @@
 class ConditionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_condition, only: [:show, :edit, :update, :destroy]
+  before_action :set_condition, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
 
   def index
-    @conditions = current_user.conditions
+    @tab = params[:tab] == "archived" ? "archived" : "active"
+    all_conditions = current_user.conditions
+    @active_conditions = all_conditions.where(archived: false)
+    @archived_conditions = all_conditions.where(archived: true)
+    @conditions = @tab == "archived" ? @archived_conditions : @active_conditions
   end
 
   def show
@@ -34,6 +38,16 @@ class ConditionsController < ApplicationController
     end
   end
 
+  def archive
+    @condition.update(archived: true)
+    redirect_to conditions_path, notice: "\"#{@condition.description}\" was moved to your archive."
+  end
+
+  def unarchive
+    @condition.update(archived: false)
+    redirect_to @condition, notice: "\"#{@condition.description}\" has been restored to your active dashboard."
+  end
+
   def destroy
     @condition.destroy
     redirect_to conditions_path, notice: "Condition was successfully removed.", status: :see_other
@@ -46,6 +60,6 @@ class ConditionsController < ApplicationController
   end
 
   def condition_params
-    params.require(:condition).permit(:description, :symptoms, :diagnosed_on, :cured)
+    params.require(:condition).permit(:description, :symptoms, :diagnosed_on, :cured, :archived)
   end
 end

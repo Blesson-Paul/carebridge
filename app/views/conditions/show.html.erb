@@ -9,9 +9,15 @@
         <h1><%= @condition.description %></h1>
       </div>
 
-      <span class="condition-status <%= @condition.cured? ? "status-cured" : "status-active" %>">
-        <%= @condition.cured? ? "Cured" : "Active" %>
-      </span>
+      <div class="d-flex gap-2 align-items-center">
+        <% if @condition.archived? %>
+          <span class="condition-status status-archived">Archived</span>
+        <% else %>
+          <span class="condition-status <%= @condition.cured? ? 'status-cured' : 'status-active' %>">
+            <%= @condition.cured? ? "Cured" : "Active" %>
+          </span>
+        <% end %>
+      </div>
     </div>
 
     <div class="condition-detail-grid">
