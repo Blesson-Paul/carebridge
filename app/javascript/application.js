@@ -27,4 +27,26 @@ const setupAgePreview = () => {
   });
 };
 
-document.addEventListener("turbo:load", setupAgePreview);
+const setupConditionSearch = () => {
+  const searchInput = document.querySelector("#condition_search");
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = document.querySelectorAll(".condition-card[data-searchable]");
+
+    cards.forEach((card) => {
+      const text = card.getAttribute("data-searchable") || "";
+      if (text.includes(query)) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+};
+
+document.addEventListener("turbo:load", () => {
+  setupAgePreview();
+  setupConditionSearch();
+});
