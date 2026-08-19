@@ -1,5 +1,33 @@
-<p> <%= @condition.description %> </p>
 
+<div class="condition-show-page">
+  <%= link_to "← Back to my conditions", conditions_path, class: "back-link" %>
 
+  <div class="condition-show-card">
+    <div class="condition-show-header">
+      <div>
+        <p class="eyebrow">CONDITION DETAILS</p>
+        <h1><%= @condition.description %></h1>
+      </div>
 
-<%= button_to "New chat", condition_chats_path(@condition), class: "btn btn-primary" %>
+      <span class="condition-status <%= @condition.cured? ? "status-cured" : "status-active" %>">
+        <%= @condition.cured? ? "Cured" : "Active" %>
+      </span>
+    </div>
+
+    <div class="condition-detail-grid">
+      <div class="condition-detail-box">
+        <span>Symptoms</span>
+        <strong><%= @condition.symptoms.presence || "No symptoms added yet." %></strong>
+      </div>
+
+      <div class="condition-detail-box">
+        <span>Diagnosed on</span>
+        <strong>
+          <%= @condition.diagnosed_on ? @condition.diagnosed_on.strftime("%B %d, %Y") : "Not added" %>
+        </strong>
+      </div>
+    </div>
+  </div>
+  <%= button_to "New chat", condition_chats_path(@condition), class: "btn btn-primary" %>
+</div>
+>>>>>>> master

@@ -1,0 +1,182 @@
+.conditions-page,
+.condition-show-page {
+  max-width: 1180px;
+  margin: 56px auto 0;
+}
+
+.conditions-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.conditions-header h1,
+.condition-show-card h1,
+.condition-form-card h1 {
+  margin: 0;
+  color: #071044;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.conditions-header p {
+  margin: 12px 0 0;
+  color: #4a5678;
+  font-size: 18px;
+}
+
+.conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.condition-card {
+  display: flex;
+  min-height: 320px;
+  padding: 28px;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(226, 226, 246, 0.95);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(51, 43, 132, 0.11);
+  color: #071044;
+  text-decoration: none;
+}
+
+.condition-card:hover {
+  color: #071044;
+  transform: translateY(-4px);
+}
+
+.condition-card-header,
+.condition-show-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.condition-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  background: #ece8ff;
+  border-radius: 18px;
+  color: #6250f5;
+  font-size: 34px;
+}
+
+.condition-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.status-active {
+  background: #fff4df;
+  border: 1px solid #ffe0a9;
+  color: #a16100;
+}
+
+.status-cured {
+  background: #eefbf4;
+  border: 1px solid #d8f4e5;
+  color: #168955;
+}
+
+.condition-card h2 {
+  margin: 28px 0 12px;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.condition-card p {
+  margin: 0;
+  color: #4a5678;
+  line-height: 1.5;
+}
+
+.condition-meta {
+  display: grid;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.condition-meta span,
+.condition-detail-box span {
+  color: #687395;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.condition-meta strong,
+.condition-detail-box strong {
+  color: #071044;
+}
+
+.condition-card-link {
+  margin-top: 18px;
+  color: #5848ef;
+  font-weight: 900;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 20px;
+  color: #5848ef;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.condition-show-card,
+.condition-form-card,
+.empty-state {
+  padding: 42px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(226, 226, 246, 0.95);
+  border-radius: 34px;
+  box-shadow: 0 28px 80px rgba(51, 43, 132, 0.13);
+}
+
+.condition-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.condition-detail-box {
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+  background: #fbfaff;
+  border: 1px solid #eeeaf8;
+  border-radius: 20px;
+}
+
+.condition-form-page {
+  max-width: 720px;
+  margin: 56px auto 0;
+}
+
+.condition-form-subtitle {
+  margin: 12px 0 28px;
+  color: #4a5678;
+  font-size: 18px;
+}
+
+.condition-form-card textarea {
+  min-height: 120px;
+}
