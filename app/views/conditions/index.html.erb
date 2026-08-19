@@ -69,6 +69,11 @@
         <span class="tab-badge"><%= @cured_conditions.count %></span>
       <% end %>
 
+      <%= link_to conditions_path(tab: :all), class: "tab-btn #{@tab == 'all' ? 'active' : ''}" do %>
+        <i class="fa-solid fa-list me-1"></i> All
+        <span class="tab-badge"><%= @unarchived_conditions.count %></span>
+      <% end %>
+
       <%= link_to conditions_path(tab: :archived), class: "tab-btn #{@tab == 'archived' ? 'active' : ''}" do %>
         <i class="fa-solid fa-box-archive me-1"></i> Archived History
         <span class="tab-badge"><%= @archived_conditions.count %></span>
