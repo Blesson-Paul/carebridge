@@ -1,11 +1,56 @@
 <div class="conditions-page">
-  <div class="conditions-header">
-    <div>
-      <h1>My conditions</h1>
-      <p>Choose a condition to view symptoms, diagnosis date, and current status.</p>
+  <!-- Patient Profile Summary Card -->
+  <div class="patient-profile-card">
+    <div class="profile-main-row">
+      <div class="profile-user-info">
+        <div class="profile-avatar">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <div>
+          <span class="patient-badge">PATIENT PROFILE</span>
+          <h1><%= current_user.name.presence || "Patient" %></h1>
+          <p class="profile-email"><%= current_user.email %></p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <%= link_to new_condition_path, class: "btn btn-primary" do %>
+          <i class="fa-solid fa-plus me-1"></i> Add condition
+        <% end %>
+      </div>
     </div>
 
-    <%= link_to "Add condition", new_condition_path, class: "btn btn-primary" %>
+    <div class="profile-meta-grid">
+      <div class="profile-pill">
+        <span class="pill-label">AGE</span>
+        <strong class="pill-value">
+          <%= calculate_age(current_user.date_of_birth) %>
+          <% if current_user.date_of_birth %>
+            <small class="pill-sub">(<%= current_user.date_of_birth.strftime("%b %Y") %>)</small>
+          <% end %>
+        </strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">GENDER</span>
+        <strong class="pill-value"><%= current_user.gender.presence || "Not specified" %></strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">ACTIVE CONDITIONS</span>
+        <strong class="pill-value"><%= @conditions.reject(&:cured?).count %></strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">RESOLVED</span>
+        <strong class="pill-value"><%= @conditions.select(&:cured?).count %></strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title-row">
+    <h2>Tracked Conditions</h2>
+    <span class="conditions-count"><%= @conditions.count %> total</span>
   </div>
 
   <% if @conditions.any? %>
@@ -20,7 +65,16 @@
           </div>
 
           <h2><%= link_to condition.description, condition_path(condition), class: "condition-title-link" %></h2>
-          <p><%= condition.symptoms.presence || "No symptoms added yet." %></p>
+          
+          <div class="symptom-tags-wrapper">
+            <% if condition.symptoms.present? %>
+              <% condition.symptoms.split(/[,;\n]+/).each do |symptom| %>
+                <span class="symptom-tag"><%= symptom.strip %></span>
+              <% end %>
+            <% else %>
+              <p class="text-muted small mb-0">No symptoms added yet.</p>
+            <% end %>
+          </div>
 
           <div class="condition-meta">
             <span>Diagnosed on</span>
@@ -48,6 +102,8 @@
     <div class="empty-state">
       <h2>No conditions yet</h2>
       <p>Your conditions will appear here after they are created.</p>
+      <%= link_to "Add your first condition", new_condition_path, class: "btn btn-primary mt-3" %>
     </div>
   <% end %>
 </div>
+
