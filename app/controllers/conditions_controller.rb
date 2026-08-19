@@ -1,6 +1,6 @@
 class ConditionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_condition, only: [:show]
+  before_action :set_condition, only: [:show, :edit, :update, :destroy]
 
   def index
     @conditions = current_user.conditions
@@ -23,6 +23,22 @@ class ConditionsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @condition.update(condition_params)
+      redirect_to @condition, notice: "Condition was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @condition.destroy
+    redirect_to conditions_path, notice: "Condition was successfully removed.", status: :see_other
+  end
+
   private
 
   def set_condition
@@ -30,6 +46,6 @@ class ConditionsController < ApplicationController
   end
 
   def condition_params
-    params.require(:condition).permit(:description, :symptoms, :diagnosed_on)
+    params.require(:condition).permit(:description, :symptoms, :diagnosed_on, :cured)
   end
 end

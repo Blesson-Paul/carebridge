@@ -1,0 +1,52 @@
+<div class="condition-form-page">
+  <%= link_to "← Back to condition", condition_path(@condition), class: "back-link" %>
+
+  <div class="condition-form-card">
+    <div class="d-flex justify-content-between align-items-start">
+      <div>
+        <h1>Edit condition</h1>
+        <p class="condition-form-subtitle">
+          Update symptoms, diagnosis date, or mark this condition as resolved.
+        </p>
+      </div>
+      <%= button_to condition_path(@condition),
+                    method: :delete,
+                    data: { turbo_confirm: "Are you sure you want to delete this condition?" },
+                    class: "btn btn-outline btn-logout" do %>
+        <i class="fa-regular fa-trash-can me-1"></i> Delete
+      <% end %>
+    </div>
+
+    <%= simple_form_for @condition do |f| %>
+      <div class="form-inputs">
+        <%= f.input :description,
+                    label: "Condition name",
+                    required: true,
+                    placeholder: "Example: Migraine" %>
+
+        <%= f.input :symptoms,
+                    as: :text,
+                    required: true,
+                    placeholder: "Example: Headache, nausea, light sensitivity" %>
+
+        <%= f.input :diagnosed_on,
+                    as: :date,
+                    html5: true,
+                    required: true,
+                    label: "Diagnosed on" %>
+
+        <div class="cured-checkbox-card mt-3 mb-4 p-3 border rounded-3 bg-light d-flex align-items-center gap-3">
+          <%= f.input :cured,
+                      as: :boolean,
+                      label: "Mark this condition as Cured / Resolved",
+                      wrapper_html: { class: "mb-0" } %>
+        </div>
+      </div>
+
+      <div class="form-actions d-flex gap-3">
+        <%= f.button :submit, "Save changes", class: "btn btn-primary" %>
+        <%= link_to "Cancel", condition_path(@condition), class: "btn btn-outline" %>
+      </div>
+    <% end %>
+  </div>
+</div>
