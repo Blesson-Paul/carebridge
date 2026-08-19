@@ -14,10 +14,14 @@
     </p>
 
     <div class="hero-actions">
-      <%= link_to new_user_registration_path, class: "btn btn-primary btn-large" do %>
-        Get Started <span>›</span>
+      <% if user_signed_in? %>
+        <%= link_to "View My Conditions", conditions_path, class: "btn btn-primary btn-large" %>
+      <% else %>
+        <%= link_to new_user_registration_path, class: "btn btn-primary btn-large" do %>
+          Get Started <span>›</span>
+        <% end %>
+        <%= link_to "Log In", new_user_session_path, class: "btn btn-outline btn-large" %>
       <% end %>
-      <%= link_to "Log In", new_user_session_path, class: "btn btn-outline btn-large" %>
     </div>
 
     <div class="hero-features">
