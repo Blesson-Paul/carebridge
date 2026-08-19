@@ -11,7 +11,7 @@
   <% if @conditions.any? %>
     <div class="conditions-grid">
       <% @conditions.each do |condition| %>
-        <%= link_to condition_path(condition), class: "condition-card" do %>
+        <div class="condition-card">
           <div class="condition-card-header">
             <div class="condition-icon">♡</div>
             <span class="condition-status <%= condition.cured? ? "status-cured" : "status-active" %>">
@@ -19,7 +19,7 @@
             </span>
           </div>
 
-          <h2><%= condition.description %></h2>
+          <h2><%= link_to condition.description, condition_path(condition), class: "condition-title-link" %></h2>
           <p><%= condition.symptoms.presence || "No symptoms added yet." %></p>
 
           <div class="condition-meta">
@@ -29,8 +29,19 @@
             </strong>
           </div>
 
-          <span class="condition-card-link">View details →</span>
-        <% end %>
+          <div class="condition-card-actions">
+            <%= link_to "Details →", condition_path(condition), class: "condition-card-link" %>
+            <% if condition.chat.present? %>
+              <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+              <% end %>
+            <% else %>
+              <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   <% else %>
