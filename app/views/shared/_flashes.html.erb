@@ -1,0 +1,19 @@
+<% if notice %>
+  <div class="alert alert-info alert-dismissible fade show flash-alert" role="alert">
+    <div class="flash-content">
+      <i class="fa-solid fa-circle-check flash-icon"></i>
+      <span><%= notice %></span>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show flash-alert" role="alert">
+    <div class="flash-content">
+      <i class="fa-solid fa-triangle-exclamation flash-icon"></i>
+      <span><%= alert %></span>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>

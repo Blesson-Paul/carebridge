@@ -5,7 +5,18 @@
   <% end %>
 
   <div class="nav-actions">
-    <%= link_to "Log In", new_user_session_path, class: "btn btn-outline" %>
-    <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary" %>
+    <% if user_signed_in? %>
+      <%= link_to "My Conditions", conditions_path, class: "btn btn-outline" %>
+      <div class="user-pill">
+        <span class="user-avatar-circle">
+          <i class="fa-regular fa-user"></i>
+        </span>
+        <span class="user-name"><%= current_user.name.presence || current_user.email.split('@').first.capitalize %></span>
+      </div>
+      <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-outline btn-logout" %>
+    <% else %>
+      <%= link_to "Log In", new_user_session_path, class: "btn btn-outline" %>
+      <%= link_to "Get Started", new_user_registration_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 </nav>
