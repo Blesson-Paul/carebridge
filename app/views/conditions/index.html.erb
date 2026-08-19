@@ -78,9 +78,12 @@
               <% if condition.archived? %>
                 <span class="condition-status status-archived">Archived</span>
               <% else %>
-                <span class="condition-status <%= condition.cured? ? 'status-cured' : 'status-active' %>">
-                  <%= condition.cured? ? "Cured" : "Active" %>
-                </span>
+                <%= button_to toggle_cured_condition_path(condition),
+                              method: :patch,
+                              title: condition.cured? ? "Click to switch to Active" : "Click to mark as Cured",
+                              class: "condition-status-btn #{condition.cured? ? 'status-cured' : 'status-active'}" do %>
+                  <%= condition.cured? ? "✓ Cured" : "Active" %>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -107,21 +110,34 @@
           <div class="condition-card-actions">
             <%= link_to "Details →", condition_path(condition), class: "condition-card-link" %>
             
-            <% if condition.archived? %>
-              <%= button_to unarchive_condition_path(condition), method: :patch, class: "btn btn-outline btn-sm" do %>
-                <i class="fa-solid fa-arrow-rotate-left me-1"></i> Restore
-              <% end %>
-            <% else %>
-              <% if condition.chat.present? %>
-                <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
-                  <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+            <div class="d-flex gap-2 align-items-center">
+              <% if condition.archived? %>
+                <%= button_to unarchive_condition_path(condition), method: :patch, class: "btn btn-outline btn-sm" do %>
+                  <i class="fa-solid fa-arrow-rotate-left me-1"></i> Restore
                 <% end %>
               <% else %>
-                <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
-                  <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                <%= button_to toggle_cured_condition_path(condition),
+                              method: :patch,
+                              title: condition.cured? ? "Click to switch back to Active" : "Click to mark condition as Cured",
+                              class: "btn btn-sm #{condition.cured? ? 'btn-status-cured-toggle' : 'btn-mark-cured'}" do %>
+                  <% if condition.cured? %>
+                    <i class="fa-solid fa-arrow-rotate-left me-1"></i> Active
+                  <% else %>
+                    <i class="fa-solid fa-circle-check me-1"></i> Cured
+                  <% end %>
+                <% end %>
+
+                <% if condition.chat.present? %>
+                  <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                  <% end %>
+                <% else %>
+                  <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
         </div>
       <% end %>

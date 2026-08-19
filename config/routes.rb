@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       patch :archive
       patch :unarchive
+      patch :toggle_cured
     end
     resources :chats, only: [:create, :show]
   end

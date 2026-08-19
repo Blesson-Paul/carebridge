@@ -1,6 +1,6 @@
 class ConditionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_condition, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
+  before_action :set_condition, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :toggle_cured]
 
   def index
     @tab = params[:tab] == "archived" ? "archived" : "active"
@@ -36,6 +36,12 @@ class ConditionsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def toggle_cured
+    @condition.update(cured: !@condition.cured)
+    status_text = @condition.cured? ? "marked as cured" : "marked as active"
+    redirect_back fallback_location: @condition, notice: "\"#{@condition.description}\" was #{status_text}."
   end
 
   def archive
