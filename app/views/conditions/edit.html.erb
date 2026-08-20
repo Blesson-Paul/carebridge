@@ -1,0 +1,17 @@
+<h1>Edit Post</h1>
+
+<%= form_with model: @condition do |form| %>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :symptoms %>
+    <%= form.text_area :symptoms %>
+  </div>
+
+  <%= form.submit "Update condition" %>
+<% end %>
+
+<%= link_to "Back", conditions_path %>

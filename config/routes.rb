@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :conditions, only: [:index, :show, :new, :create] do
-    resources :chats, only: [:create, :show]
+  resources :conditions, only: [ :index, :show, :new, :create, :destroy, :edit, :update ] do
+    resources :chats, only: [ :create, :show ]
   end
   resources :chats do
     resources :messages, only: [:create]
@@ -21,4 +21,3 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
-  
