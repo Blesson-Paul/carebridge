@@ -1,0 +1,8 @@
+<%= turbo_stream.remove "chat_empty_state" %>
+<%= turbo_stream.append "messages",
+  partial: "chats/message",
+  collection: [@message, @assistant_message],
+  as: :message %>
+<%= turbo_stream.replace "new_message_container",
+  partial: "chats/form",
+  locals: { chat: @chat, message: Message.new } %>
