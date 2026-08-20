@@ -41,18 +41,28 @@ The goal is: clean, cute, useful, and readable in a few seconds when I feel sick
     if @message.save
       # choose llm
       @ruby_llm_chat = RubyLLM.chat
+      build_conversation_history
       # save response with instructions (prompt) and ask the user qst
       response = @ruby_llm_chat.with_instructions(build_system_promt).ask(@message.content)
       # create the llm message
       @assistant_message = Message.create(role: "assistant", content: response.content, chat: @chat)
-      # redirect to the chat path
-      redirect_to chat_path(@chat)
+      @chat.generate_title_from_first_message
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to chat_path(@chat) }
+      end
     else
       render "chats/show", status: :unprocessable_entity
     end
   end
 
   private
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @ruby_llm_chat.add_message(role: message.role, content: message.content)
+    end
+  end
 
   def message_params
     params.require(:message).permit(:content)

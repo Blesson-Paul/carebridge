@@ -1,0 +1,10 @@
+<div id="new_message_container" class="chat-input-section">
+  <%= simple_form_for [chat, message], html: { class: "chat-form", data: { turbo_stream: true } } do |f| %>
+    <%= f.input :content,
+                label: false,
+                required: true,
+                placeholder: "Ask about symptoms, treatments, or routines...",
+                input_html: { rows: 2, class: "chat-input" } %>
+    <%= f.button :submit, "Ask CareBridge", class: "btn btn-primary btn-chat-submit" %>
+  <% end %>
+</div>

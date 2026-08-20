@@ -37,8 +37,18 @@
           <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
         <% end %>
       <% end %>
-      <%= button_to "Delete", condition_path(@condition), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure?" } %>
-      <%= link_to "Edit", edit_condition_path(@condition), class: "btn btn-warning" %>
+
+      <div class="condition-management-actions">
+        <%= link_to edit_condition_path(@condition), class: "condition-action-btn condition-action-edit", title: "Edit condition" do %>
+          <i class="fa-solid fa-pen"></i>
+          <span>Edit condition</span>
+        <% end %>
+
+        <%= button_to condition_path(@condition), method: :delete, class: "condition-action-btn condition-action-delete", data: { turbo_confirm: "Delete this condition? This cannot be undone." }, title: "Delete condition" do %>
+          <i class="fa-regular fa-trash-can"></i>
+          <span>Delete</span>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
