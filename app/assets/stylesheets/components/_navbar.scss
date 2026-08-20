@@ -13,6 +13,82 @@
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
+.user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 226, 246, 0.95);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(51, 43, 132, 0.06);
+
+  .user-avatar-circle {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7b61ff, #5046e5);
+    color: #ffffff;
+    font-size: 14px;
+  }
+
+  .user-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #071044;
+  }
+}
+
+.btn-logout {
+  background: transparent;
+  color: #687395;
+  border-color: #dcd7f2;
+  font-size: 14px;
+  padding: 8px 16px;
+  min-height: 38px;
+
+  &:hover {
+    color: #e02424;
+    border-color: #fca5a5;
+    background: #fff5f5;
+  }
+}
+
+.flash-alert {
+  max-width: 1180px;
+  margin: 20px auto 0;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 8px 24px rgba(35, 25, 95, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+
+  .flash-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 15px;
+
+    .flash-icon {
+      font-size: 18px;
+    }
+  }
+
+  &.alert-info {
+    background: #eef2ff;
+    color: #3730a3;
+  }
+
+  &.alert-warning {
+    background: #fffbeb;
+    color: #92400e;
+  }
+}
