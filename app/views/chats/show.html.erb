@@ -18,7 +18,7 @@
           <div class="message-wrapper <%= message.role == 'user' ? 'message-user' : 'message-assistant' %>">
             <div class="message-bubble">
               <div class="message-header">
-                <strong><%= message.role == 'user' ? 'You' : 'CareBridge AI' %></strong>
+                <strong><%= message.role == 'user' ? 'You' : ' Your CareBridge Assistant' %></strong>
                 <span class="message-time"><%= message.created_at.strftime("%I:%M %p") %></span>
               </div>
               <div class="message-content">
@@ -45,7 +45,7 @@
                     required: true,
                     placeholder: "Ask about symptoms, treatments, or routines...",
                     input_html: { rows: 2, class: "chat-input" } %>
-        <%= f.button :submit, 'Ask AI', class: 'btn btn-primary btn-chat-submit' %>
+        <%= f.button :submit, 'Ask CareBridge', class: 'btn btn-primary btn-chat-submit' %>
       <% end %>
     </div>
   </div>
