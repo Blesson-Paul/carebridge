@@ -37,6 +37,8 @@
           <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
         <% end %>
       <% end %>
+      <%= button_to "Delete", condition_path(@condition), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure?" } %>
+      <%= link_to "Edit", edit_condition_path(@condition), class: "btn btn-warning" %>
     </div>
   </div>
 </div>

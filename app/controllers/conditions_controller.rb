@@ -1,14 +1,12 @@
 class ConditionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_condition, only: [ :show ]
+  before_action :set_condition, only: [ :show, :destroy, :edit, :update]
 
   def index
     @conditions = current_user.conditions
+    @active_conditions = @conditions.where(cured: false).count
+    @unactive_conditions = @conditions.where(cured: true).count
   end
-
-  def show
-  end
-
   def new
     @condition = Condition.new
   end
@@ -22,6 +20,26 @@ class ConditionsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    # find the condition
+    # grab a weapon
+    # kill it
+    @condition.destroy!
+    redirect_to conditions_path
+  end
+
+  def edit
+  end
+
+  def update
+    if @condition.update(condition_params)
+      redirect_to @condition, notice: "your condition was successfully updated"
+    else
+      render :edit, status: :uprocessable_entity
+    end
+
   end
 
   private

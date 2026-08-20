@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_19_144036) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_20_125009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,7 +26,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_144036) do
 
   create_table "conditions", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.boolean "cured"
+    t.boolean "cured", default: false
     t.string "description"
     t.date "diagnosed_on"
     t.string "symptoms"
