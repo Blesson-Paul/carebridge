@@ -7,8 +7,8 @@
         <i class="fa-solid fa-wand-magic-sparkles"></i>
       </div>
       <div>
-        <h1><%= @chat.title.presence || "AI Health Assistant" %></h1>
-        <p class="chat-subtitle">Condition: <strong><%= @chat.condition.description %></strong></p>
+        <h1><%= @chat.condition.description || "CareBrigde Assisant" %></h1>
+        <p class="chat-subtitle">Symptoms: <strong><%= @chat.condition.symptoms%></strong></p>
       </div>
     </div>
 

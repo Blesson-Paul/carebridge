@@ -1,17 +1,43 @@
-<h1>Edit Post</h1>
+<div class="condition-form-page">
+  <%= link_to "← Back to condition", condition_path(@condition), class: "back-link" %>
 
-<%= form_with model: @condition do |form| %>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+  <div class="condition-form-card">
+    <h1>Edit condition</h1>
+    <p class="condition-form-subtitle">
+      Update the details for this condition.
+    </p>
 
-  <div>
-    <%= form.label :symptoms %>
-    <%= form.text_area :symptoms %>
-  </div>
+    <%= simple_form_for @condition do |f| %>
+      <div class="form-inputs">
+        <%= f.input :description,
+                    label: "Condition name",
+                    placeholder: "Example: Migraine" %>
 
-  <%= form.submit "Update condition" %>
-<% end %>
+        <%= f.input :symptoms,
+                    as: :text,
+                    placeholder: "Example: Headache, nausea, light sensitivity" %>
 
-<%= link_to "Back", conditions_path %>
+        <%= f.input :diagnosed_on,
+                    as: :date,
+                    html5: true,
+                    label: "Diagnosed on" %>
+
+        <!-- 🍏 iOS Status Slider Switch -->
+        <div class="status-toggle-wrapper my-4">
+          <div>
+            <label class="status-toggle-label d-block">Condition Status</label>
+            <small class="text-muted">Slide to mark this condition as Cured</small>
+          </div>
+          <label class="ios-switch">
+            <%= f.check_box :cured, id: "cured_toggle" %>
+            <span class="ios-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Update condition", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
