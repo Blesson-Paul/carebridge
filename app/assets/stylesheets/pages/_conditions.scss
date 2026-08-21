@@ -430,3 +430,81 @@
     transform: translateX(36px);
   }
 }
+/* Base Icon Box */
+.condition-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  font-size: 22px;
+  transition: all 0.2s ease;
+}
+
+/* 💜 Active Illness: Soft Purple Heartbeat */
+.icon-active {
+  background: #ece8ff;
+  color: #Ff0000;
+}
+
+/* 💚 Cured Illness: Fresh Mint Green Shield */
+.icon-cured {
+  background: #eefbf4;
+  color: #168955;
+}
+/* Search Filter Bar */
+.search-filter-wrapper {
+  max-width: 100%;
+}
+
+.search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 226, 246, 0.95);
+  border-radius: 20px;
+  padding: 4px 18px;
+  box-shadow: 0 10px 30px rgba(51, 43, 132, 0.05);
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: #6250f5;
+    box-shadow: 0 0 0 4px rgba(98, 80, 245, 0.12);
+  }
+}
+
+.search-icon {
+  color: #7b88a8;
+  font-size: 16px;
+  margin-right: 12px;
+}
+
+.condition-search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 15px;
+  color: #071044;
+  outline: none;
+
+  &::placeholder {
+    color: #94a0b8;
+  }
+}
+
+.clear-search-btn {
+  background: transparent;
+  border: none;
+  color: #94a0b8;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #071044;
+    background: #f1f0f8;
+  }
+}
