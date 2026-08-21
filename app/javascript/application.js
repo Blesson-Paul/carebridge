@@ -74,3 +74,25 @@ const setupConditionSearch = () => {
 
 document.addEventListener("turbo:load", setupConditionSearch);
 document.addEventListener("turbo:render", setupConditionSearch);
+const scrollMessagesToBottom = () => {
+    const messages = document.getElementById("messages");
+    if (!messages) return;
+
+    messages.scrollTo({
+      top: messages.scrollHeight,
+      behavior: "smooth"
+    });
+  };
+
+  document.addEventListener("turbo:load", scrollMessagesToBottom);
+
+  document.addEventListener("turbo:before-stream-render", (event) => {
+    if (event.target.getAttribute("target") !== "messages") return;
+
+    const render = event.detail.render;
+
+    event.detail.render = (streamElement) => {
+      render(streamElement);
+      requestAnimationFrame(scrollMessagesToBottom);
+    };
+  });
