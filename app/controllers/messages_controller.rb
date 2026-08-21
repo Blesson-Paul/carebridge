@@ -26,6 +26,7 @@ The goal is: clean, cute, useful, and readable in a few seconds when I feel sick
   def create
     # find the chat for
     # 1. the current user and
+    # @messages = Message.all
     @chat = current_user.chats.find(params[:chat_id])
 
     @@continuous_params = params

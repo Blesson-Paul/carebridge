@@ -1,6 +1,6 @@
 <div class="chat-page">
   <%= link_to "← Back to #{@chat.condition.description}", condition_path(@chat.condition), class: "back-link" %>
-
+  <%= turbo_stream_from @chat %>
   <div class="chat-card">
     <div class="chat-header">
       <div class="chat-avatar">
@@ -15,17 +15,7 @@
     <div class="messages-container" id="messages">
       <% if @chat.messages.any? %>
         <% @chat.messages.each do |message| %>
-          <div class="message-wrapper <%= message.role == 'user' ? 'message-user' : 'message-assistant' %>">
-            <div class="message-bubble">
-              <div class="message-header">
-                <strong><%= message.role == 'user' ? 'You' : ' Your CareBridge Assistant' %></strong>
-                <span class="message-time"><%= message.created_at.strftime("%I:%M %p") %></span>
-              </div>
-              <div class="message-content">
-                <%= simple_format(message.content) %>
-              </div>
-            </div>
-          </div>
+          <%= render "chats/message", message: message %>
         <% end %>
       <% else %>
         <div class="chat-empty-state">
