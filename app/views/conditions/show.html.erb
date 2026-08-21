@@ -35,8 +35,12 @@
       <div class="condition-detail-box">
         <span>Diagnosed on</span>
         <strong>
-          <%= @condition.diagnosed_on ? @condition.diagnosed_on.strftime("%B %d, %Y") : "Not added" %>
-        </strong>
+          <% if @condition.diagnosed_on %>
+                <%= @condition.diagnosed_on.strftime("%B %d, %Y") %>
+                <small class="text-muted d-block mt-1">(<%= days_since_diagnosed(@condition.diagnosed_on) %>)</small>
+              <% else %>
+                Not added
+              <% end %>        </strong>
       </div>
     </div>
     <div class="condition-show-actions">
@@ -51,7 +55,7 @@
       <% end %>
       <%= link_to "Edit", edit_condition_path(@condition), class: "btn btn-warning btn-large" %>
 
-  
+
       <%= button_to "Delete", condition_path(@condition), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Are you sure?" } %>
     </div>
   </div>

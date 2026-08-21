@@ -11,16 +11,16 @@
       <div class="form-inputs">
         <%= f.input :description,
                     label: "Condition name",
-                    placeholder: "Example: Migraine" %>
+                    placeholder: "Example: Migraine" , required: true%>
 
         <%= f.input :symptoms,
                     as: :text,
-                    placeholder: "Example: Headache, nausea, light sensitivity" %>
+                    placeholder: "Example: Headache, nausea, light sensitivity" , required: true %>
 
         <%= f.input :diagnosed_on,
                     as: :date,
                     html5: true,
-                    label: "Diagnosed on" %>
+                    label: "Diagnosed on" , required: true %>
 
         <!-- 🍏 iOS Status Slider Switch -->
         <div class="status-toggle-wrapper my-4">

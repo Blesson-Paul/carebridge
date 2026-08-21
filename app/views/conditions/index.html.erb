@@ -2,13 +2,17 @@
  <div class="patient-profile-card">
     <div class="profile-main-row">
       <div class="profile-user-info">
-        <div class="profile-avatar">
-          <i class="fa-regular fa-user"></i>
-        </div>
         <div>
-          <span class="patient-badge">PATIENT PROFILE</span>
-          <h1><%= current_user.name.presence || "Patient" %></h1>
-          <p class="profile-email"><%= current_user.email %></p>
+              <div class="profile-user-info">
+              <div class="profile-avatar">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              <div>
+                <span class="patient-badge">PATIENT DASHBOARD</span>
+                <h1><%= time_based_greeting %>, <%= current_user.name.presence || "Patient" %></h1>
+                <p class="profile-email"><%= current_user.email %></p>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -54,12 +58,41 @@
 
     <%= link_to "Add condition", new_condition_path, class: "btn btn-primary" %>
   </div>
+      <!-- 🔍 Real-Time Search Filter Bar -->
+  <div class="search-filter-wrapper mb-4">
+    <div class="search-input-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text"
+             id="conditionSearchInput"
+             class="condition-search-input"
+             placeholder="Search conditions or symptoms (e.g. Migraine, Allergy, Pain)..."
+             autocomplete="off">
+      <button type="button" id="clearSearchBtn" class="clear-search-btn d-none" title="Clear">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- "No Results" Message (hidden by default) -->
+  <div id="noSearchResults" class="empty-state d-none text-center py-5">
+    <div class="condition-icon mx-auto mb-3" style="width: 60px; height: 60px; font-size: 26px;">
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+    </div>
+    <h3>No matching conditions</h3>
+    <p class="text-muted">Try searching with a different term or symptom.</p>
+  </div>
   <% if @conditions.any? %>
     <div class="conditions-grid">
       <% @conditions.each do |condition| %>
         <div class="condition-card">
           <div class="condition-card-header">
-            <div class="condition-icon">♡</div>
+          <div class="condition-icon <%= condition.cured? ? 'icon-cured' : 'icon-active' %>">
+            <% if condition.cured? %>
+              <i class="fa-solid fa-shield-heart"></i>
+            <% else %>
+              <i class="fa-solid fa-heart-pulse"></i>
+            <% end %>
+          </div>
             <span class="condition-status <%= condition.cured? ? "status-cured" : "status-active" %>">
               <%= condition.cured? ? "Cured" : "Active" %>
             </span>
@@ -71,8 +104,15 @@
           <div class="condition-meta">
             <span>Diagnosed on</span>
             <strong>
-              <%= condition.diagnosed_on ? condition.diagnosed_on.strftime("%b %d, %Y") : "Not added" %>
-            </strong>
+             <% if condition.diagnosed_on %>
+            <%= condition.diagnosed_on.strftime("%b %d, %Y") %>
+            <span class="badge bg-light text-primary ms-1 border">
+              <%= days_since_diagnosed(condition.diagnosed_on) %>
+            </span>
+          <% else %>
+            Not added
+          <% end %>
+         </strong>
           </div>
 
           <div class="condition-card-actions">
