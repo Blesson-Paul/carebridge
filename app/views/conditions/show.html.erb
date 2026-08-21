@@ -9,8 +9,20 @@
         <h1><%= @condition.description %></h1>
       </div>
 
-      <span class="condition-status <%= @condition.cured? ? "status-cured" : "status-active" %>">
-        <%= @condition.cured? ? "Cured" : "Active" %>
+      <span  <!-- 🍏 Instant iOS Slider Switch & Status Badge in Top-Right -->
+      <div class="d-flex align-items-center gap-3">
+        <span class="condition-status <%= @condition.cured? ? 'status-cured' : 'status-active' %>">
+          <%= @condition.cured? ? "Cured" : "Active" %>
+        </span>
+        <%= form_with model: @condition, method: :patch, class: "d-inline-block m-0" do |f| %>
+          <label class="ios-switch" title="Toggle Cured / Active">
+            <%= f.check_box :cured, onchange: "this.form.requestSubmit()" %>
+            <span class="ios-slider"></span>
+          </label>
+        <% end %>
+      </div>
+
+
       </span>
     </div>
 
@@ -30,15 +42,17 @@
     <div class="condition-show-actions">
       <% if @condition.chat.present? %>
         <%= link_to condition_chat_path(@condition, @condition.chat), class: "btn btn-primary btn-large" do %>
-          <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
+          <i class="fa-solid fa-comments me-2"></i> Chat with CareBridge
         <% end %>
       <% else %>
         <%= button_to condition_chats_path(@condition), method: :post, class: "btn btn-primary btn-large" do %>
-          <i class="fa-solid fa-comments me-2"></i> Chat with AI Bot
+          <i class="fa-solid fa-comments me-2"></i> Chat with CareBridge
         <% end %>
       <% end %>
-      <%= button_to "Delete", condition_path(@condition), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure?" } %>
-      <%= link_to "Edit", edit_condition_path(@condition), class: "btn btn-warning" %>
+      <%= link_to "Edit", edit_condition_path(@condition), class: "btn btn-warning btn-large" %>
+
+  
+      <%= button_to "Delete", condition_path(@condition), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Are you sure?" } %>
     </div>
   </div>
 </div>

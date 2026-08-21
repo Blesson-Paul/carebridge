@@ -25,6 +25,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_125009) do
   end
 
   create_table "conditions", force: :cascade do |t|
+    t.boolean "archived", default: false, null: false
     t.datetime "created_at", null: false
     t.boolean "cured", default: false
     t.string "description"

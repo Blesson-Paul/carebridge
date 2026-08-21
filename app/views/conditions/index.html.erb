@@ -1,5 +1,50 @@
 <div class="conditions-page">
-  
+ <div class="patient-profile-card">
+    <div class="profile-main-row">
+      <div class="profile-user-info">
+        <div class="profile-avatar">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <div>
+          <span class="patient-badge">PATIENT PROFILE</span>
+          <h1><%= current_user.name.presence || "Patient" %></h1>
+          <p class="profile-email"><%= current_user.email %></p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="profile-meta-grid">
+      <div class="profile-pill">
+        <span class="pill-label">AGE</span>
+        <strong class="pill-value">
+          <%= calculate_age(current_user.date_of_birth) %>
+          <% if current_user.date_of_birth %>
+            <small class="pill-sub">(<%= current_user.date_of_birth.strftime("%b %Y") %>)</small>
+          <% end %>
+        </strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">GENDER</span>
+        <strong class="pill-value"><%= current_user.gender.presence || "Not specified" %></strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">ACTIVE</span>
+        <strong class="pill-value"><%= @active_conditions %></strong>
+      </div>
+
+      <div class="profile-pill">
+        <span class="pill-label">CURED</span>
+        <strong class="pill-value text-success"><%= @unactive_conditions %></strong>
+      </div>
+
+
+    </div>
+  </div>
+
 
   <div class="conditions-header">
     <div>
@@ -9,7 +54,6 @@
 
     <%= link_to "Add condition", new_condition_path, class: "btn btn-primary" %>
   </div>
-
   <% if @conditions.any? %>
     <div class="conditions-grid">
       <% @conditions.each do |condition| %>
@@ -35,11 +79,11 @@
             <%= link_to "Details →", condition_path(condition), class: "condition-card-link" %>
             <% if condition.chat.present? %>
               <%= link_to condition_chat_path(condition, condition.chat), class: "btn btn-ai-chat" do %>
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to CareBrige
               <% end %>
             <% else %>
               <%= button_to condition_chats_path(condition), method: :post, class: "btn btn-ai-chat" do %>
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to AI
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Talk to CareBrige
               <% end %>
             <% end %>
           </div>

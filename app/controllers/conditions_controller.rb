@@ -4,7 +4,7 @@ class ConditionsController < ApplicationController
 
   def index
     @conditions = current_user.conditions
-    @active_conditions = @conditions.where(cured: false).count
+    @active_conditions = @conditions.where(cured: [false, nil]).count
     @unactive_conditions = @conditions.where(cured: true).count
   end
   def new
@@ -37,7 +37,7 @@ class ConditionsController < ApplicationController
     if @condition.update(condition_params)
       redirect_to @condition, notice: "your condition was successfully updated"
     else
-      render :edit, status: :uprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
 
   end
@@ -49,6 +49,6 @@ class ConditionsController < ApplicationController
   end
 
   def condition_params
-    params.require(:condition).permit(:description, :symptoms, :diagnosed_on)
+    params.require(:condition).permit(:description, :symptoms, :diagnosed_on, :cured)
   end
 end
